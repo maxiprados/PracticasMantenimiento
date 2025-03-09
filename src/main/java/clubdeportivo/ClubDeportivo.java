@@ -32,6 +32,13 @@ public class ClubDeportivo {
 	}
 
 	public void anyadirActividad(String[] datos) throws ClubException {
+		//No se comprueba que el array pasado por parametro tenga la longitud correcta -> FALLO
+		if (datos.length < 5) {
+			throw new ClubException("ERROR: el array de datos no tiene la longitud correcta");
+		}
+		
+		
+		
 		try {
 			int plazas = Integer.parseInt(datos[2]);
 			int matriculados = Integer.parseInt(datos[3]);

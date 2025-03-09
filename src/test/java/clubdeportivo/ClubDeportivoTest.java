@@ -16,12 +16,14 @@ public class ClubDeportivoTest {
         //Arr: Preparamos los datos
         String name="Club";
         int n=1;
+        String expected = "Club --> [  ]";
 
         //Act: Creamos el objeto
         ClubDeportivo club = new ClubDeportivo(name, n);
 
         //Assert: Verificamos que no sea nulo
         assertNotNull(club);
+        assertEquals(club.toString(), expected);
     }
 
 
@@ -30,6 +32,7 @@ public class ClubDeportivoTest {
     void clubDeportivo_SinGrupos() throws ClubException {
         //Arrange: no es necesario preparar datos
         String name = "Club";
+        String expected = "Club --> [  ]";
         
 
         //Act: Creamos el objeto
@@ -37,6 +40,7 @@ public class ClubDeportivoTest {
 
         //Assert: Realizamos las verificaciones
         assertNotNull(club);
+        assertEquals(club.toString(), expected);
     }
 
 
@@ -64,6 +68,13 @@ public class ClubDeportivoTest {
         //Act & Assert : Creamos el objeto y comprobamos si lanza la excepción
         assertThrows(ClubException.class,() -> new ClubDeportivo(name, n));
     }
+
+
+
+
+
+
+
 
     @Test
     @DisplayName("Añadir grupo nulo a un club deportivo")
@@ -115,6 +126,24 @@ public class ClubDeportivoTest {
         assertEquals(club.toString(),"Club --> [ (Futbol - Deporte - 10.0 euros - P:20 - M:0) ]");
 
     }
+
+
+    @Test
+    @DisplayName("Añadir grupo con datos insuficientes en el array")
+    public void anyadirGrupo_ArrayDatosInsuficientes() throws ClubException{
+        //Arrange: Preparamos los datos
+        String name="Club";
+        ClubDeportivo club = new ClubDeportivo(name);
+        String[] datos = {"Futbol", "Deporte", "10", "0"}; //Faltan datos
+        
+        //Act & Assert: Añadimos el grupo al club con los datos del array (datos insuficientes)
+        assertThrows(ClubException.class,() -> club.anyadirActividad(datos));
+    }
+
+
+
+
+
 
     @Test
     @DisplayName("Inserciones correctas de grupos pasando como argumento el array de datos del grupo")

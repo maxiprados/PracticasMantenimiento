@@ -25,7 +25,7 @@ public class ClubDeportivoMain {
 
         //Act: añadimos el grupo al club con los datos del array
         club.anyadirActividad(datosFutbol);
-        club.anyadirActividad(datosBaloncesto);
+        //club.anyadirActividad(datosBaloncesto);
 
 		System.out.println(club);
 
