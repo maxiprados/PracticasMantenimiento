@@ -222,7 +222,27 @@ public class ClubDeportivoTest {
     }
 
 
+    @Test
+    @DisplayName("Obtencion de los ingresos de un club deportivo")
+    public void ingresosCorrectos() throws ClubException{
+        //Arrange: Preparamos los datos a emplear
 
+        ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datosBaloncesto = {"Bsk", "Baloncesto", "10", "0", "10.0"};
+        String[] datosFutbol = {"FutInfantil", "Futbol", "10", "7", "10.0"};
+
+        club.anyadirActividad(datosBaloncesto);
+        club.anyadirActividad(datosFutbol);
+
+        double ingresosExpected = 70;
+        double cantidadObtenida;
+
+        //Act: Calculamos los ingresos del club
+        cantidadObtenida = club.ingresos();
+
+        //Assert: Comprobamos que los ingresos son los esperados
+        assertEquals(cantidadObtenida,ingresosExpected);
+    }
     
 
 
