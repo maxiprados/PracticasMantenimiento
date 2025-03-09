@@ -88,12 +88,7 @@ public class ClubDeportivoTest {
         //Arrange: Preparamos los datos
         String name="Club";
         ClubDeportivo club = new ClubDeportivo(name);
-        String codigo = "Futbol";
-        String actividad = "Deporte";
-        int nplazas = 10;
-        int matriculados = 0;
-        double tarifa = 10.0;
-        Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
+        Grupo grupo = new Grupo("Futbol", "Deporte", 10, 0, 10.0);
         String cadenaEsperada = "Club --> [ (Futbol - Deporte - 10.0 euros - P:10 - M:0) ]";
 
         //Act: Añadimos el grupo
@@ -104,10 +99,131 @@ public class ClubDeportivoTest {
         assertEquals(club.toString(),cadenaEsperada);
     }
     
+    @Test
+    @DisplayName("Insercion correcta de un grupo existente en un club deportivo")
+    void anyadirGrupoExistente() throws ClubException{
+        //Arrange: Preparamos los datos a usar
+        ClubDeportivo club = new ClubDeportivo("Club");
+        Grupo futbol = new Grupo("Futbol", "Deporte", 10, 0, 10.0);
+        club.anyadirActividad(futbol);
+        Grupo futbolNuevo = new Grupo("Futbol", "Deporte", 20, 0, 10.0);
+
+        //Act: Añadimos el grupo nuevo probando el anyadirActividad con un grupo ya existente
+        club.anyadirActividad(futbolNuevo);
+
+        //Assert: Comprobamos que el grupo se ha añadido correctamente, sustituyendo el antiguo num de plazas por el nuevo
+        assertEquals(club.toString(),"Club --> [ (Futbol - Deporte - 10.0 euros - P:20 - M:0) ]");
+
+    }
+
+    @Test
+    @DisplayName("Inserciones correctas de grupos pasando como argumento el array de datos del grupo")
+    public void anyadirActividadesArgArray() throws ClubException{
+        //Arrange: Preparamos los datos
+        ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datosFutbol = {"Fut", "Futbol", "10", "0", "10.0"};
+        String[] datosBaloncesto = {"Bal", "Baloncesto", "20", "0", "20.0"};
+        String expected = "Club --> [ (Fut - Futbol - 10.0 euros - P:10 - M:0), (Bal - Baloncesto - 20.0 euros - P:20 - M:0) ]";
+
+
+        //Act: añadimos el grupo al club con los datos del array
+        club.anyadirActividad(datosFutbol);
+        club.anyadirActividad(datosBaloncesto);
+
+        //Assert: Comprobamos que el grupo se ha añadido correctamente
+        assertEquals(club.toString(),expected);
+    }
+
+
+    @Test
+    @DisplayName("Insercion de un grupo con formato de número incorrecto en el array que se pasa por parametro")
+    public void anyadirActividadArgArrayFormatoIncorrecto() throws ClubException{
+        //Arrange: Preparamos los datos
+        ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datos = {"Futbol", "Deporte", "Fallo", "0", "10.0"};
+
+        //Act & Assert: Añadimos el grupo al club con los datos del array (datos erróneos)
+        assertThrows(ClubException.class,() -> club.anyadirActividad(datos));
+    }
+
+    @Test
+    @DisplayName("Calculo correcto de plazas libres en una actividad")
+    public void plazasLibresCorrecto() throws ClubException{
+        //Arrange: Preparamos los datos a utilizar
+        ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datosFutbol = {"FutAdulto", "Futbol", "10", "0", "10.0"};
+        String[] datosFutbol2 = {"FutInfantil", "Futbol", "20", "5", "10.0"};
+        String[] datosBaloncesto = {"Bsk", "Baloncesto", "30", "5", "20.0"};
+
+        club.anyadirActividad(datosFutbol);
+        club.anyadirActividad(datosFutbol2);
+        club.anyadirActividad(datosBaloncesto);
+        int plazasLibres;
+
+        //Act: Calculamos las plazas libres de la actividad Futbol
+        plazasLibres = club.plazasLibres("Futbol");
+
+        //Assert: Comprobamos que el cálculo es correcto
+        assertEquals(plazasLibres,25);
+
+    }
+
+
+    @Test
+    @DisplayName("Matriculación de personas en una actividad en la que no quedan plazas")
+    public void matricularSinPlazas() throws ClubException{
+        //Arrange: Preparamos los datos
+        ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datosFutbol = {"Fut", "Futbol", "10", "7", "10.0"};
+        club.anyadirActividad(datosFutbol);
+
+        //Act & Assert: Matriculamos a 5 personas en una actividad con 0 plazas libres
+        assertThrows(ClubException.class,() -> club.matricular("Futbol", 5));
+    }
+
+    @Test
+    @DisplayName("Matriculación de personas en una actividad con plazas libres")
+    public void matricularConPlazas() throws ClubException{
+        //Arrange: Preparamos los datos
+        ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datosBaloncesto = {"Bsk", "Baloncesto", "10", "0", "10.0"};
+        String[] datosFutbol = {"FutInfantil", "Futbol", "10", "7", "10.0"};
+        String[] datosFutbol2 = {"FutAdulto", "Futbol", "20", "0", "20.0"};
+        club.anyadirActividad(datosBaloncesto);
+        club.anyadirActividad(datosFutbol);
+        club.anyadirActividad(datosFutbol2);
+        String expected = "Club --> [ (Bsk - Baloncesto - 10.0 euros - P:10 - M:0), (FutInfantil - Futbol - 10.0 euros - P:10 - M:10), (FutAdulto - Futbol - 20.0 euros - P:20 - M:1) ]";
+
+        //Act: Matriculamos a 4 personas en una actividad con plazas libres
+        club.matricular("Futbol", 4);
+
+        //Assert: Comprobamos que se han matriculado correctamente
+        assertEquals(club.toString(),expected);
+    }
+
+    @Test
+    @DisplayName("Matriculación de personas en una actividad con plazas libres y fin de numero de pesonas")
+    public void matricularConPlazasSinPersonasRestantes() throws ClubException{
+        //Arrange: Preparamos los datos
+        ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datosBaloncesto = {"Bsk", "Baloncesto", "10", "0", "10.0"};
+        String[] datosFutbol = {"FutInfantil", "Futbol", "10", "7", "10.0"};
+        String[] datosFutbol2 = {"FutAdulto", "Futbol", "20", "0", "20.0"};
+        club.anyadirActividad(datosBaloncesto);
+        club.anyadirActividad(datosFutbol);
+        club.anyadirActividad(datosFutbol2);
+        String expected = "Club --> [ (Bsk - Baloncesto - 10.0 euros - P:10 - M:10), (FutInfantil - Futbol - 10.0 euros - P:10 - M:7), (FutAdulto - Futbol - 20.0 euros - P:20 - M:0) ]";
+
+        //Act: Matriculamos a 10 personas en una actividad con plazas libres
+        club.matricular("Baloncesto", 10);
+
+        //Assert: Comprobamos que se han matriculado correctamente
+        assertEquals(club.toString(),expected);
+    }
 
 
 
-
+    
 
 
 }

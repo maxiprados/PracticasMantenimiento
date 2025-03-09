@@ -17,22 +17,18 @@ public class ClubDeportivoMain {
 		} catch (ClubException e) {
 			System.out.println(e.getMessage());
 		}*/
-		String name="Club";
-        ClubDeportivo club = new ClubDeportivo(name);
-        String codigo = "Futbol";
-        String actividad = "Deporte";
-        int nplazas = 10;
-        int matriculados = 0;
-        double tarifa = 10.0;
-        Grupo grupo = new Grupo(codigo, actividad, nplazas, matriculados, tarifa);
 
-		
+		ClubDeportivo club = new ClubDeportivo("Club");
+        String[] datosFutbol = {"Fut", "Futbol", "10", "0", "10.0"};
+        String[] datosBaloncesto = {"Bal", "Baloncesto", "20", "0", "20.0"};
 
-        //Act: Añadimos el grupo
-        club.anyadirActividad(grupo);
+
+        //Act: añadimos el grupo al club con los datos del array
+        club.anyadirActividad(datosFutbol);
+        club.anyadirActividad(datosBaloncesto);
+
 		System.out.println(club);
 
-		//Assert: Comprobamos que la insercion se ha ejecutado correctamente (empleando el toString que re)
 
 
 

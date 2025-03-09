@@ -82,6 +82,8 @@ public class ClubDeportivo {
 					npersonas -= plazasGrupo;
 				} else {
 					grupos[i].matricular(npersonas);
+					//Habría que decrementar npersonas a 0 para salir del bucle y no seguir añadiendo personas "ficticias" -> FALLO
+					npersonas = 0;
 				}
 			}
 			i++;
