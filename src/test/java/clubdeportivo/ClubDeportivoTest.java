@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class ClubDeportivoTest {
     
+<<<<<<< Updated upstream
 
     @Test
     @DisplayName("Constructor de club deportivo crea objeto correctamente")
@@ -275,4 +276,6 @@ public class ClubDeportivoTest {
     
 
 
+=======
+>>>>>>> Stashed changes
 }
