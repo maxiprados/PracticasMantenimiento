@@ -18,14 +18,14 @@ public class ClubDeportivoMain {
 			System.out.println(e.getMessage());
 		}*/
 
-		ClubDeportivo club = new ClubDeportivo("Club");
+		ClubDeportivo club = new ClubDeportivo("Club", 2);
         String[] datosFutbol = {"Fut", "Futbol", "10", "0", "10.0"};
         String[] datosBaloncesto = {"Bal", "Baloncesto", "20", "0", "20.0"};
 
 
         //Act: añadimos el grupo al club con los datos del array
         club.anyadirActividad(datosFutbol);
-        //club.anyadirActividad(datosBaloncesto);
+        club.anyadirActividad(datosBaloncesto);
 
 		System.out.println(club);
 

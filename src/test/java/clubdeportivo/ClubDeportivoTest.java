@@ -140,7 +140,23 @@ public class ClubDeportivoTest {
         assertThrows(ClubException.class,() -> club.anyadirActividad(datos));
     }
 
+    @Test
+    @DisplayName("Añadir mas grupos que los definidos en el constructor")
+    public void anyadirGrupo_MasGruposQueNGruposDefinidos() throws ClubException{
+        //Arrange: Preparamos los datos
+        String name="Club";
+        ClubDeportivo club = new ClubDeportivo(name, 1);
+        Grupo grupo1 = new Grupo("Futbol", "Deporte", 10, 0, 1);
+        Grupo grupo2 = new Grupo("Basketbol", "Deporte", 10, 0, 1);
 
+        club.anyadirActividad(grupo1);
+
+        String expected = "ERROR: tamaño maximo de grupos ha sido completado";
+
+        //Act & Assert: Añadimos los grupos (mas de los que deberia haber)
+        Exception exception = assertThrows(ClubException.class,() -> club.anyadirActividad(grupo2));
+        assertEquals(expected, exception.getMessage());
+    }
 
 
 
@@ -174,6 +190,7 @@ public class ClubDeportivoTest {
         //Act & Assert: Añadimos el grupo al club con los datos del array (datos erróneos)
         assertThrows(ClubException.class,() -> club.anyadirActividad(datos));
     }
+
 
     @Test
     @DisplayName("Calculo correcto de plazas libres en una actividad")

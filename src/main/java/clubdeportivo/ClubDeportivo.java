@@ -56,11 +56,14 @@ public class ClubDeportivo {
 			throw new ClubException("ERROR: el grupo es nulo");
 		}
 		int pos = buscar(g);
-		if (pos == -1) { // El grupo es nuevo
+		//Si metes mas grupos de los que se han delimitado al principio en el constructor da IndexOutOfBounds-> FALLO
+		if (pos==-1 && ngrupos == grupos.length){
+			throw new ClubException("ERROR: tamaño maximo de grupos ha sido completado");
+		}
+		else if (pos == -1 && ngrupos <= grupos.length) { // El grupo es nuevo
 			grupos[ngrupos] = g;
 			ngrupos++;
-		}
-		else { // El grupo ya existe --> modificamos las plazas
+		}else { // El grupo ya existe --> modificamos las plazas
 			grupos[pos].actualizarPlazas(g.getPlazas());
 		}
 	}
