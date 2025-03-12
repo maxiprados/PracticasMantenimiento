@@ -204,13 +204,12 @@ public class GrupoTest {
     public void testtoStringCorrecto() throws ClubException{
         //Arrange
         Grupo grupo = new Grupo("G1","natacion", 20, 10, 15);
-        int n = -1;
+        
 
         //Act
         String expected = "("+ grupo.getCodigo() + " - "+grupo.getActividad()+" - " + grupo.getTarifa() + " euros "+ "- P:" + grupo.getPlazas() +" - M:" +grupo.getMatriculados()+")";
         String tostr = grupo.toString();
 
-        String errorExpected = "ERROR: no hay plazas libres suficientes, plazas libre: "+ grupo.plazasLibres()+ " y matriculas: "+n;
         assertEquals(expected, tostr);
     }
 

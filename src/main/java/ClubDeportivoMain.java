@@ -2,7 +2,6 @@
 //Grupo C
 import clubdeportivo.ClubDeportivo;
 import clubdeportivo.ClubException;
-import clubdeportivo.Grupo;
 
 public class ClubDeportivoMain {
 	public static void main(String[] args) throws ClubException {
