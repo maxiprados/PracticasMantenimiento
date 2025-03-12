@@ -51,6 +51,7 @@ public class ClubDeportivo {
 	}
 
 	public void anyadirActividad(Grupo g) throws ClubException {
+		//Aqui si metes mas grupos de los que has definido en el club hay un out of bounds
 		if (g==null){ // ADDME: anaydido para comprobar los grupos nulos
 			throw new ClubException("ERROR: el grupo es nulo");
 		}
@@ -58,7 +59,8 @@ public class ClubDeportivo {
 		if (pos == -1) { // El grupo es nuevo
 			grupos[ngrupos] = g;
 			ngrupos++;
-		} else { // El grupo ya existe --> modificamos las plazas
+		}
+		else { // El grupo ya existe --> modificamos las plazas
 			grupos[pos].actualizarPlazas(g.getPlazas());
 		}
 	}
