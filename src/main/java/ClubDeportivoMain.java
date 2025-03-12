@@ -1,3 +1,5 @@
+//Hecho por Maximo Prados Melendez y Pedro Scarpati Sundblad
+//Grupo C
 import clubdeportivo.ClubDeportivo;
 import clubdeportivo.ClubException;
 import clubdeportivo.Grupo;

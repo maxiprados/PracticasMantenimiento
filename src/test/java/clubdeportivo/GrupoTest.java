@@ -1,3 +1,5 @@
+//Hecho por Maximo Prados Melendez y Pedro Scarpati Sundblad
+//Grupo C
 package clubdeportivo;
 
 import org.junit.jupiter.api.DisplayName;
