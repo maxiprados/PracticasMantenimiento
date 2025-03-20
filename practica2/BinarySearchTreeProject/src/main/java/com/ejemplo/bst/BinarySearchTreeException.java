@@ -1,4 +1,4 @@
-package org.mps.tree;
+package main.java.com.ejemplo.bst;
 
 public class BinarySearchTreeException extends RuntimeException {
     public BinarySearchTreeException(String message) {
