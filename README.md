@@ -1,3 +1,3 @@
-# Practicas de Mantenimiento realizadas por Máximo Prados Meléndez y Pedro Scarpati Sundblad - Grupo C
+# Prácticas de Mantenimiento realizadas por Máximo Prados Meléndez y Pedro Scarpati Sundblad - Grupo C
 
  
