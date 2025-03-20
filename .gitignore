@@ -22,3 +22,5 @@ buildNumber.properties
 # Archivos de compilacion Java y Maven
 target/
 *.class
+# Entregas finales en comprimidos
+*.zip
