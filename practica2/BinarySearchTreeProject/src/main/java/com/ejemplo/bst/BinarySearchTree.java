@@ -60,7 +60,7 @@ public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
                     left.insert(value);
                 }
             }
-            else if(cmp > 0) {
+            if(cmp > 0) {
                 if(right == null) {
                     right = new BinarySearchTree<>(comparator);
                     right.insert(value);
@@ -82,7 +82,6 @@ public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
         if(this.value == null) {
             return false;
         }
-        if(value == null) return false;
 
         int comp = comparator.compare(value, this.value);
         //Si la comparación da cero es que hemos llegado al valor
