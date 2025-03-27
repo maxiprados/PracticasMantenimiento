@@ -2,6 +2,7 @@ package main.java.com.ejemplo.bst;
 
 import java.util.Comparator;
 import java.util.List;
+import java.net.BindException;
 import java.util.ArrayList;
 
 public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
@@ -146,9 +147,59 @@ public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
 
     // Complex operations
 
-    public void removeValue(T value){
-
+    public void removeValue(T value) {
+        if (this.value == null) {
+            throw new BinarySearchTreeException("El elemento no se encuentra presente en el árbol");
+        }
+    
+        int comp = comparator.compare(value, this.value);
+    
+        if (comp < 0) {
+            // Buscar en el subárbol izquierdo
+            if (left == null) {
+                throw new BinarySearchTreeException("El elemento no se encuentra presente en el árbol");
+            }
+            left.removeValue(value);
+            // Eliminar la rama izquierda si queda vacía
+            if (left.value == null) {
+                left = null;
+            }
+        } else if (comp > 0) {
+            // Buscar en el subárbol derecho
+            if (right == null) {
+                throw new BinarySearchTreeException("El elemento no se encuentra presente en el árbol");
+            }
+            right.removeValue(value);
+            // Eliminar la rama derecha si queda vacía
+            if (right.value == null) {
+                right = null;
+            }
+        } else {
+            // Nodo encontrado
+            if (isLeaf()) {
+                // Caso 1: El nodo es una hoja
+                this.value = null;
+            } else if (left != null && right != null) {
+                // Caso 3: El nodo tiene dos hijos
+                T minValue = right.minimum();
+                this.value = minValue;
+                right.removeValue(minValue);
+                // Eliminar la rama derecha si queda vacía
+                if (right.value == null) {
+                    right = null;
+                }
+            } else {
+                // Caso 2: El nodo tiene un solo hijo
+                BinarySearchTree<T> child = (left != null) ? left : right;
+                this.value = child.value;
+                this.left = child.left;
+                this.right = child.right;
+            }
+        }
     }
+    
+    
+    
     public List<T> inOrder(){
         List<T> a = new ArrayList<>();
         return a;
