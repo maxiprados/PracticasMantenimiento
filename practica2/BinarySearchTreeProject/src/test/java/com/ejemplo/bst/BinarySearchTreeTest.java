@@ -1,9 +1,9 @@
 package com.ejemplo.bst;
 
-import main.java.com.ejemplo.bst.BinarySearchTree;
-import org.junit.Test;
-
+import com.ejemplo.bst.BinarySearchTree;
 import java.util.Comparator;
+
+import org.junit.jupiter.api.Test;
 
 public class BinarySearchTreeTest {
     Comparator<Integer> comparator = Integer::compareTo;

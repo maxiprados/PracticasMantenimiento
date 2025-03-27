@@ -1,4 +1,4 @@
-package main.java.com.ejemplo.bst;
+package com.ejemplo.bst;
 import java.util.List;
 
 /**
