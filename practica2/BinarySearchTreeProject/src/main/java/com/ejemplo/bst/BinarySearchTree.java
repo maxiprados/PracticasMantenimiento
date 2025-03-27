@@ -148,6 +148,10 @@ public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
     // Complex operations
 
     public void removeValue(T value) {
+        if(value==null){
+            
+        }
+        
         if (this.value == null) {
             throw new BinarySearchTreeException("El elemento no se encuentra presente en el árbol");
         }
