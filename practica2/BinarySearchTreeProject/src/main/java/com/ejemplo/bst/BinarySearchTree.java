@@ -145,6 +145,15 @@ public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
     }
 
     // Complex operations
-    // (Estas operaciones se incluirán más adelante para ser realizadas en la segunda
-    // sesión de laboratorio de esta práctica)
+
+    public void removeValue(T value){
+
+    }
+    public List<T> inOrder(){
+        List<T> a = new ArrayList<>();
+        return a;
+    }
+    public void balance(){
+
+    }
 }
