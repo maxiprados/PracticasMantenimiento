@@ -201,10 +201,34 @@ public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
     
     
     public List<T> inOrder(){
-        List<T> a = new ArrayList<>();
-        return a;
-    }
-    public void balance(){
+        List<T> listaOrdenada = new ArrayList<>();
+        //Recorremos el arbol es decir, leemos el valor y ejecutamos in order de el arbol izq y del der,
 
+        if(left != null) {
+            listaOrdenada.addAll(left.inOrder());
+        }
+        if(value != null) {
+            listaOrdenada.add(value);
+        }
+        if(right != null) {
+            listaOrdenada.addAll(right.inOrder());
+        }
+        return listaOrdenada;
+    }
+
+    public void balance() {
+        List<T> listaOrdenada = this.inOrder();
+        this.removeBranch(this.value); // Limpiar el árbol actual
+        construirBalanceado(listaOrdenada, 0, listaOrdenada.size() - 1);
+    }
+
+    private void construirBalanceado(List<T> lista, int inicio, int fin) {
+        if (inicio > fin) return;
+
+        int medio = (inicio + fin) / 2;
+        this.insert(lista.get(medio)); // Insertar nodo medio
+
+        construirBalanceado(lista, inicio, medio - 1); // Lado izquierdo
+        construirBalanceado(lista, medio + 1, fin);    // Lado derecho
     }
 }

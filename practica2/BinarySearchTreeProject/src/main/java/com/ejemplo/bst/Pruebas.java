@@ -17,6 +17,9 @@ public class Pruebas {
         tree.insert(12);
         tree.insert(20);
 
+
+        System.out.println(tree.inOrder());
+        tree.balance();
         // Mostrar el árbol en formato renderizado
         System.out.println("Árbol actual: " + tree.render());
 
@@ -42,9 +45,16 @@ public class Pruebas {
         tree.removeBranch(5);
         System.out.println("Árbol después de eliminar 5: " + tree.render());
 
+        System.out.println(tree.inOrder());
+        tree.balance();
+
         // Eliminar un nodo con dos hijos (10)
-        System.out.println("Eliminando nodo con dos hijos (10)...");
-        tree.removeBranch(10);
-        System.out.println("Árbol después de eliminar 10: " + tree.render());
+        //System.out.println("Eliminando nodo con dos hijos (10)...");
+        //tree.removeBranch(10);
+        //System.out.println("Árbol después de eliminar 10: " + tree.render());
+
+        // Mostrar el árbol en formato renderizado
+        System.out.println("Árbol actual: " + tree.render());
+
     }
 }
