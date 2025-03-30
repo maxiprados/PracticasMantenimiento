@@ -148,7 +148,7 @@ public class BinarySearchTree<T> implements BinarySearchTreeStructure<T> {
 
     public void removeValue(T value) {
         if(value==null){
-            
+            throw new BinarySearchTreeException("El valor no puede ser nulo");
         }
         
         if (this.value == null) {

@@ -416,4 +416,304 @@ public class BinarySearchTreeTest{
             assertEquals(expected, tree.render());
         }
     }
+
+    @Nested
+    class sizeTests{
+        @Test
+        @DisplayName("Realizamos el Test para un arbol vacio")
+        public void size_arbolVacio_Returns0(){
+            //Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+
+            //Act
+            int size = tree.size();
+
+            //Assert
+            assertEquals(0, size);
+        }
+
+        @Test
+        @DisplayName("Realizamos el Test para un arbol con un nodo")
+        public void size_arbolConUnNodo_Returns1(){
+            //Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            int nodo = 5;
+            tree.insert(nodo);
+
+            //Act
+            
+            int size = tree.size();
+
+            //Assert
+            assertEquals(1, size);
+        }
+
+        @Test
+        @DisplayName("Realizamos el Test para un arbol con varios nodos")
+        public void size_arbolConVariosNodos_ReturnsCorrectSize(){
+            //Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            int nodoUno = 5;
+            int nodoDos = 4;
+            int nodoTres = 6;
+            int nodoCuatro = 7;
+            int nodoCinco = -1;
+            int expectedSize = 5;
+            tree.insert(nodoUno);
+            tree.insert(nodoDos);
+            tree.insert(nodoTres);
+            tree.insert(nodoCuatro);
+            tree.insert(nodoCinco);
+            
+            //Act
+
+            int size = tree.size();
+
+            //Assert
+            assertEquals(expectedSize, size);
+        }
+    }
+
+    @Nested
+    class depthTests{
+        @Test
+        @DisplayName("Realizamos el Test para un arbol vacio")
+        public void depth_arbolVacio_Returns0(){
+            //Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+
+            //Act
+            int depth = tree.depth();
+
+            //Assert
+            assertEquals(0, depth);
+        }
+
+        @Test
+        @DisplayName("Realizamos el Test para un arbol con un nodo")
+        public void depth_arbolConUnNodo_Returns1(){
+            //Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            int nodo = 5;
+            tree.insert(nodo);
+
+            //Act
+            int depth = tree.depth();
+
+            //Assert
+            assertEquals(1, depth);
+        }
+
+        @Test
+        @DisplayName("Realizamos el Test para un arbol con varios nodos")
+        public void depth_arbolConVariosNodos_ReturnsCorrectDepth(){
+            //Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            int nodoUno = 5;
+            int nodoDos = 4;
+            int nodoTres = 6;
+            int nodoCuatro = 7;
+            int nodoCinco = -1;
+            int expectedDepth = 3;
+            tree.insert(nodoUno);
+            tree.insert(nodoDos);
+            tree.insert(nodoTres);
+            tree.insert(nodoCuatro);
+            tree.insert(nodoCinco);
+
+            //Act
+            int depth = tree.depth();
+
+            //Assert
+            assertEquals(expectedDepth, depth);
+        }
+    }
+
+    @Nested
+    class removeValueTests{
+        @Test
+        @DisplayName("Eliminar un valor nulo")
+        public void removeValue_eliminarValorNulo_ThrowsBinarySearchTreeException() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50);
+            tree.insert(30);
+            tree.insert(70);
+            String expected = "50(30,70)";
+
+            // Act & Assert: Intentamos eliminar un valor nulo y nos lanza la excepción
+            assertThrows(BinarySearchTreeException.class, ()->tree.removeValue(null));
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor cualquiera en un arbol vacio")
+        public void removeValue_eliminarValorEnArbolVacio_ThrowsBinarySearchTreeException() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            
+
+            // Act & Assert: Intentamos eliminar un valor en un árbol vacío y nos lanza la excepción
+            assertThrows(BinarySearchTreeException.class, ()->tree.removeValue(50));
+        }
+
+
+
+        @Test
+        @DisplayName("Eliminar un valor que no está presente en el arbol por la ramqa derecha")
+        public void removeValue_eliminarNodoQueNoExisteDer_ThrowsBinarySearchTreeException() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50);
+            tree.insert(30);
+            tree.insert(70);
+            String expected = "50(30,70)";
+
+            // Act & Assert: Intentamos eliminar un nodo que no existe y nos lanza la excepción
+            assertThrows(BinarySearchTreeException.class, ()->tree.removeValue(100));
+
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor que no está presente en el arbol por la ramqa izquierda")
+        public void removeValue_eliminarNodoQueNoExisteIzq_ThrowsBinarySearchTreeException() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50);
+            tree.insert(30);
+            tree.insert(70);
+            String expected = "50(30,70)";
+
+            // Act & Assert: Intentamos eliminar un nodo que no existe y nos lanza la excepción
+            assertThrows(BinarySearchTreeException.class, ()->tree.removeValue(-100));
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor que está presente en el arbol por la rama izquierda borrando la rama")
+        public void removeValue_eliminarNodoExistenteIzq_EliminaRamaIzquierda() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50); // Nodo raíz
+            tree.insert(30); // Subárbol izquierdo
+            
+            String expected = "50";
+
+            // Act: Eliminamos un nodo existente en el subárbol izquierdo
+            tree.removeValue(30);
+
+            // Assert: El nodo se elimina correctamente y la rama izquierda queda vacía
+            assertFalse(tree.contains(30));
+            assertEquals(expected, tree.render());
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor que está presente en el arbol por la rama izquierda sin borrar la rama")
+        public void removeValue_eliminarNodoExistenteIzq_SinEliminarRamaIzquierda(){
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50); // Nodo raíz
+            tree.insert(30); // Subárbol izquierdo
+            tree.insert(20); // Nodo en el subárbol izquierdo
+            String expected = "50(20,)";
+
+            // Act: Eliminamos un nodo existente en el subárbol izquierdo
+            tree.removeValue(30);
+
+            // Assert: El nodo se elimina correctamente y la rama izquierda queda vacía
+            assertFalse(tree.contains(30));
+            assertEquals(expected, tree.render());
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor que está presente en el arbol por la rama derecha borrando la rama")
+        public void removeValue_eliminarNodoExistenteDer_EliminaRamaDerecha() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50); // Nodo raíz
+            tree.insert(70); // Subárbol derecho
+            
+            String expected = "50";
+
+            // Act: Eliminamos un nodo existente en el subárbol derecho
+            tree.removeValue(70);
+
+            // Assert: El nodo se elimina correctamente y la rama derecha queda vacía
+            assertFalse(tree.contains(70));
+            assertEquals(expected, tree.render());
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor que está presente en el arbol por la rama derecha sin borrar la rama")
+        public void removeValue_eliminarNodoExistenteDer_SinEliminarRamaDerecha(){
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50); // Nodo raíz
+            tree.insert(70); // Subárbol derecho
+            tree.insert(80); // Nodo en el subárbol derecho
+            String expected = "50(,80)";
+
+            // Act: Eliminamos un nodo existente en el subárbol derecho
+            tree.removeValue(70);
+
+            // Assert: El nodo se elimina correctamente y la rama derecha queda vacía
+            assertFalse(tree.contains(70));
+            assertEquals(expected, tree.render());
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor que está presente en el arbol y tiene dos hijos")
+        public void removeValue_eliminarNodoConDosHijos_EliminaRama() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50); // Nodo raíz
+            tree.insert(30); // Subárbol izquierdo
+            tree.insert(70); // Subárbol derecho
+            tree.insert(60); // Nodo en el subárbol derecho
+            tree.insert(80); // Nodo en el subárbol derecho
+            String expected = "50(30,80(60,))";
+
+            // Act: Eliminamos un nodo existente con dos hijos
+            tree.removeValue(70);
+
+            // Assert: El nodo se elimina correctamente y la rama derecha queda vacía
+            assertFalse(tree.contains(70));
+            assertEquals(expected, tree.render());
+        }
+
+        @Test
+        @DisplayName("Eliminar un valor que está presente en el arbol y tiene dos hijos sin borrar la rama")
+        public void removeValue_eliminarNodoConDosHijos_SinEliminarRama() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            tree.insert(50); // Nodo raíz
+            tree.insert(30); // Subárbol izquierdo
+            tree.insert(70); // Subárbol derecho
+            tree.insert(60); // Nodo en el subárbol derecho
+            tree.insert(80);
+            tree.insert(90); 
+            String expected = "50(30,80(60,90))";
+
+            // Act: Eliminamos un nodo existente con dos hijos
+            tree.removeValue(70);
+
+            // Assert: El nodo se elimina correctamente y la rama derecha queda vacía
+            assertFalse(tree.contains(70));
+            assertEquals(expected, tree.render());
+        }
+    }
 }
