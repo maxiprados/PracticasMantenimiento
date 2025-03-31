@@ -18,6 +18,7 @@ buildNumber.properties
 # Mac file
 .DS_Store
 .vscode
+.idea
 
 # Archivos de compilacion Java y Maven
 target/
