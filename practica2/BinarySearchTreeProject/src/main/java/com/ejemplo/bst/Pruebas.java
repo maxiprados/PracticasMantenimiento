@@ -1,21 +1,23 @@
+// REALIZADO POR PEDRO SCARPATI SUNDBLAD Y MAXIMO PRADOS MELENDEZ - GRUPO C
 package com.ejemplo.bst;
-//Clase para pruebas
+
 
 
 public class Pruebas {
+    //IGNORAR CLASE - SON PRUEBAS EN SUCIO PARA COMPROBAR EL FUNCIONAMIENTO DEL CÓDIGO
     public static void main(String[] args) {
         // Crear un árbol binario de búsqueda para enteros
         BinarySearchTree<Integer> tree = new BinarySearchTree<>(Integer::compareTo);
 
         // Insertar elementos
         System.out.println("Insertando elementos...");
-        tree.insert(10);
-        tree.insert(5);
-        tree.insert(15);
-        tree.insert(2);
-        tree.insert(7);
-        tree.insert(12);
         tree.insert(20);
+        tree.insert(30);
+        tree.insert(40);
+        tree.insert(35);
+        tree.insert(50);
+
+        
 
 
         System.out.println(tree.inOrder());

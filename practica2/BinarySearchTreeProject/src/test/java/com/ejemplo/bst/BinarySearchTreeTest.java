@@ -1,8 +1,11 @@
+// REALIZADO POR PEDRO SCARPATI SUNDBLAD Y MAXIMO PRADOS MELENDEZ - GRUPO C
 package com.ejemplo.bst;
 
 import com.ejemplo.bst.BinarySearchTree;
 
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -713,6 +716,91 @@ public class BinarySearchTreeTest{
 
             // Assert: El nodo se elimina correctamente y la rama derecha queda vacía
             assertFalse(tree.contains(70));
+            assertEquals(expected, tree.render());
+        }
+    }
+
+    @Nested
+    class inOrderTests{
+
+        @Test
+        @DisplayName("Recorrido inOrder de un árbol vacío")
+        public void inOrder_arbolVacio_ReturnsEmptyList() {
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+
+            // Act
+            List<Integer> result = tree.inOrder();
+
+            // Assert: Nos aseguramos que la lista este vacia
+            assertTrue(result.isEmpty());
+        }
+
+        @Test
+        @DisplayName("Recorrido inOrder de un árbol con varios nodos en rama izquierda y derecha")
+        public void inOrder_arbolConNodos_ReturnsList(){
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            List<Integer> expected = new ArrayList<>();
+            expected.add(-1);
+            expected.add(4);
+            expected.add(5);
+            expected.add(6);
+            expected.add(7);
+
+            int nodoUno = 5;
+            int nodoDos = 4;
+            int nodoTres = 6;
+            int nodoCuatro = 7;
+            int nodoCinco = -1;
+
+            //Act
+            tree.insert(nodoUno);
+            tree.insert(nodoDos);
+            tree.insert(nodoTres);
+            tree.insert(nodoCuatro);
+            tree.insert(nodoCinco);
+
+            List<Integer> result = tree.inOrder();
+
+            // Assert: Comparamos la lista esperada con la lista obtenida
+            assertEquals(expected, result);
+        }
+    }
+
+    @Nested
+    class balanceTest{
+        @Test
+        @DisplayName("Balanceo de arbol con nodos en ambas ramas")
+        public void balance_ArbolConNodos_BalanceoCorrecto(){
+            // Arrange
+            Comparator<Integer> comparator = Integer::compareTo;
+            BinarySearchTree<Integer> tree = new BinarySearchTree<>(comparator);
+            String expected = "35(20(,30),40(,50))";
+            
+
+            int nodoUno = 40;
+            int nodoDos = 30;
+            int nodoTres = 20;
+            int nodoCuatro = 35;
+            int nodoCinco = 50;
+
+            tree.insert(nodoUno);
+            tree.insert(nodoDos);
+            tree.insert(nodoTres);
+            tree.insert(nodoCuatro);
+            tree.insert(nodoCinco);
+
+
+
+
+            //Act
+
+            tree.balance();
+
+            // Assert: Comparamos la lista esperada con la lista obtenida
             assertEquals(expected, tree.render());
         }
     }
