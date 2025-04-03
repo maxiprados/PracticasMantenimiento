@@ -248,8 +248,26 @@ public class ronQI2SilverTest {
      * El método evaluarApneaSuenyo, evalua las últimas 5 lecturas realizadas con obtenerNuevaLectura(), 
      * y si ambos sensores superan o son iguales a sus umbrales, que son thresholdP = 20.0f y thresholdS = 30.0f;, 
      * se considera que hay una apnea en proceso. Si hay menos de 5 lecturas también debería realizar la media.
-     * /
+     */
+
+    @Test
+    @DisplayName("Existe una apnea del sueño")
+    public void evaluarApneaSuenyo_ReturnsTrue(){
+        //Arrange
+        RonQI2Silver ronquidossilver = new RonQI2Silver();
+        Dispositivo disp = mock(Dispositivo.class);
+        when(disp.leerSensorPresion).thenReturn(8);
+        when(disp.leerSensorSonido).thenReturn(10);
+
+        //Act
+        boolean res = ronquidossilver.evaluarApneaSuenyo();
+
+        //Assert
+        assertFalse(res);
+
+    }
     
+     
     
 
     
