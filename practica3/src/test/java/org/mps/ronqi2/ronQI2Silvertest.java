@@ -10,6 +10,8 @@ import static org.mockito.Mockito.when;
 import org.junit.jupiter.api.DisplayName;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mps.dispositivo.Dispositivo;
 
 //ERROR 1 (3/4/2025): la clase se llamaba "ronQI2Silvertest.java" y no "ronQI2SilverTest.java"
@@ -256,18 +258,117 @@ public class ronQI2SilverTest {
         //Arrange
         RonQI2Silver ronquidossilver = new RonQI2Silver();
         Dispositivo disp = mock(Dispositivo.class);
-        when(disp.leerSensorPresion()).thenReturn((float) 8);
-        when(disp.leerSensorSonido()).thenReturn((float) 10);
+        when(disp.leerSensorPresion()).thenReturn((float) 21);
+        when(disp.leerSensorSonido()).thenReturn((float) 31);
+        ronquidossilver.anyadirDispositivo(disp);
+        
+        for(int i = 0 ; i < 6 ; i++){
+            ronquidossilver.obtenerNuevaLectura();
+        }
+
 
         //Act
+        
         boolean res = ronquidossilver.evaluarApneaSuenyo();
-
+        
         //Assert
-        assertFalse(res);
+        assertTrue(res);
 
     }
+
+    @Test
+    @DisplayName("No existe apnea del sueño por baja presion")
+    public void evaluarApneaSuenyo_pocaPresion_ReturnsFalse(){
+        //Arrange
+        RonQI2Silver ronquidossilver = new RonQI2Silver();
+        Dispositivo disp = mock(Dispositivo.class);
+        when(disp.leerSensorPresion()).thenReturn((float) 19);
+        when(disp.leerSensorSonido()).thenReturn((float) 31);
+        ronquidossilver.anyadirDispositivo(disp);
+            
+        for(int i = 0 ; i < 6 ; i++){
+            ronquidossilver.obtenerNuevaLectura();
+        }
     
-     
+    
+        //Act
+            
+        boolean res = ronquidossilver.evaluarApneaSuenyo();
+            
+        //Assert
+        assertFalse(res);
+    }
+
+    @Test
+    @DisplayName("No existe apnea del sueño por bajo sonido")
+    public void evaluarApneaSuenyo_pocoSonido_ReturnsFalse(){
+        //Arrange
+        RonQI2Silver ronquidossilver = new RonQI2Silver();
+        Dispositivo disp = mock(Dispositivo.class);
+        when(disp.leerSensorPresion()).thenReturn((float) 21);
+        when(disp.leerSensorSonido()).thenReturn((float) 29);
+        ronquidossilver.anyadirDispositivo(disp);
+            
+        for(int i = 0 ; i < 6 ; i++){
+            ronquidossilver.obtenerNuevaLectura();
+        }
+    
+    
+        //Act
+            
+        boolean res = ronquidossilver.evaluarApneaSuenyo();
+            
+        //Assert
+        assertFalse(res);
+    }
+
+    @Test
+    @DisplayName("No existe apnea del sueño por amabas")
+    public void evaluarApneaSuenyo_pocoSonidoAndPocaPresion_ReturnsFalse(){
+        //Arrange
+        RonQI2Silver ronquidossilver = new RonQI2Silver();
+        Dispositivo disp = mock(Dispositivo.class);
+        when(disp.leerSensorPresion()).thenReturn((float) 19);
+        when(disp.leerSensorSonido()).thenReturn((float) 29);
+        ronquidossilver.anyadirDispositivo(disp);
+            
+        for(int i = 0 ; i < 6 ; i++){
+            ronquidossilver.obtenerNuevaLectura();
+        }
+    
+    
+        //Act
+            
+        boolean res = ronquidossilver.evaluarApneaSuenyo();
+            
+        //Assert
+        assertFalse(res);
+    }
+
+        @Test
+    @DisplayName("Se hace la media con valores < 5")
+    public void evaluarApneaSuenyo_pocosValoresMayorQueMedia_ReturnsTrue(){
+        //Arrange
+        RonQI2Silver ronquidossilver = new RonQI2Silver();
+        Dispositivo disp = mock(Dispositivo.class);
+        when(disp.leerSensorPresion()).thenReturn((float) 21);
+        when(disp.leerSensorSonido()).thenReturn((float) 31);
+        ronquidossilver.anyadirDispositivo(disp);
+            
+        for(int i = 0 ; i < 2 ; i++){
+            ronquidossilver.obtenerNuevaLectura();
+        }
+    
+    
+        //Act
+            
+        boolean res = ronquidossilver.evaluarApneaSuenyo();
+            
+        //Assert
+        assertTrue(res);
+    }
+
+    
     
 
     
@@ -276,4 +377,29 @@ public class ronQI2SilverTest {
      * Usa el ParameterizedTest para realizar un número de lecturas previas a calcular si hay apnea o no (por ejemplo 4, 5 y 10 lecturas).
      * https://junit.org/junit5/docs/current/user-guide/index.html#writing-tests-parameterized-tests
      */
+
+
+    @ParameterizedTest
+    @ValueSource(ints = {4,5,10})
+    @DisplayName("Prueba parametrizada con distintas lecturas (4,5 y 10)")
+    public void evaluarApneaSuenyo_ParametrizadaCuatroCincoDiezLecturas_ReturnsTrue(int lectura){
+        //Arrange
+        RonQI2Silver ronquidossilver = new RonQI2Silver();
+        Dispositivo disp = mock(Dispositivo.class);
+        when(disp.leerSensorPresion()).thenReturn((float) 21);
+        when(disp.leerSensorSonido()).thenReturn((float) 31);
+        ronquidossilver.anyadirDispositivo(disp);
+                    
+        for(int i = 0 ; i < lectura; i++){
+            ronquidossilver.obtenerNuevaLectura();
+        }
+            
+            
+        //Act
+                    
+        boolean res = ronquidossilver.evaluarApneaSuenyo();
+                    
+        //Assert
+        assertTrue(res);
+    }
 }
