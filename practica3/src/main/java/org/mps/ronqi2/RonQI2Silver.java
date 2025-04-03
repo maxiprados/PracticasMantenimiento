@@ -22,6 +22,11 @@ public class RonQI2Silver extends RonQI2{
      * Obtiene las lecturas de presion y sonido del dispositivo y las almacena en sus respectivos
      * contenedores.
     */
+    
+  
+    //Error 1 en el segundo add -> expresion antigua -> lecturasS.add(disp.leerSensorPresion());
+    //Expresion correcta -> lecturasS.add(disp.leerSensorSonido());
+    
     public void obtenerNuevaLectura(){
         lecturasP.add(disp.leerSensorPresion());
         if(lecturasP.size()>numLecturas){
@@ -39,6 +44,12 @@ public class RonQI2Silver extends RonQI2{
      *      establecidos
      * - False en otro caso
     */
+    
+    // Error 2 en el if ->  expresion antigua -> avgP>=thresholdP && avgS > thresholdS;
+    // Expresion Correcta -> avgP > thresholdP && avgS > thresholdS
+
+    // Error 3 en la accion que se realiza en el if -> resultado = false;
+    // Accion correcta -> resultado = true;
     @Override
     public boolean evaluarApneaSuenyo() {
         boolean resultado;
@@ -51,11 +62,12 @@ public class RonQI2Silver extends RonQI2{
                 .average()
                 .orElse(0.0);
         
-        if (avgP>=thresholdP && avgS > thresholdS){
-            resultado = false;
+        
+        if (avgP > thresholdP && avgS > thresholdS){
+            resultado = true;
         }   
         else{
-            resultado = true;
+            resultado = false;
         }
         return resultado;
     }

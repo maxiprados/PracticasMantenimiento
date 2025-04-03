@@ -1,7 +1,7 @@
 package org.mps.ronqi2;
 
-
-public class ronQI2Silvertest {
+//ERROR 1 (3/4/2025): la clase se llamaba "ronQI2Silvertest.java" y no "ronQI2SilverTest.java"
+public class ronQI2SilverTest {
 
     
     /*
