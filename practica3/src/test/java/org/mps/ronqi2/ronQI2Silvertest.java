@@ -256,8 +256,8 @@ public class ronQI2SilverTest {
         //Arrange
         RonQI2Silver ronquidossilver = new RonQI2Silver();
         Dispositivo disp = mock(Dispositivo.class);
-        when(disp.leerSensorPresion).thenReturn(8);
-        when(disp.leerSensorSonido).thenReturn(10);
+        when(disp.leerSensorPresion()).thenReturn((float) 8);
+        when(disp.leerSensorSonido()).thenReturn((float) 10);
 
         //Act
         boolean res = ronquidossilver.evaluarApneaSuenyo();
