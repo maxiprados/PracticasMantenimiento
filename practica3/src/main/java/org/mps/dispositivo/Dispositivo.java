@@ -1,3 +1,4 @@
+//Pedro Scapati Sundblad y Máximo Prados Meléndez - Grupo C
 package org.mps.dispositivo;
 
 public abstract class Dispositivo {

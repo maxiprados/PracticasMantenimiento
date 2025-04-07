@@ -1,3 +1,4 @@
+//Pedro Scapati Sundblad y Máximo Prados Meléndez - Grupo C
 package org.mps.ronqi2;
 
 import java.util.ArrayList;
