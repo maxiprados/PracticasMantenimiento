@@ -1,5 +1,6 @@
 package org.mps;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.DisplayName;
@@ -32,12 +33,10 @@ public class EvolutionaryAlgorithmTest {
         MutationOperator mutationOperator = new GaussianMutation();
         CrossoverOperator crossoverOperator = new TwoPointCrossover();
         
-        // Act & Assert
-        try {
-            new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
-        } catch (EvolutionaryAlgorithmException e) {
-            // Si se lanza una excepción, la prueba falla
-            assert false;
-        }
+        // Act
+        EvolutionaryAlgorithm algoritmo = new EvolutionaryAlgorithm(selectionOperator, mutationOperator, crossoverOperator);
+
+        // Assert
+        assertNotNull(algoritmo);
     }
 }
