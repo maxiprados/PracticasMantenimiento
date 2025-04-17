@@ -30,5 +30,6 @@ import org.mps.EvolutionaryAlgorithmException;
  */
 
 public interface SelectionOperator {
+    //Error en el select: Debe coger toda la poblacion
     int[] select(int[] population) throws EvolutionaryAlgorithmException;
 }
