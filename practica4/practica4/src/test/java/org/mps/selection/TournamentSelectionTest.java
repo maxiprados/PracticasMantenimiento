@@ -27,6 +27,18 @@ public class TournamentSelectionTest {
         // Act & Assert
         assertThrows(EvolutionaryAlgorithmException.class, () -> selection.select(null));
         assertThrows(EvolutionaryAlgorithmException.class, () -> selection.select(new int[]{1, 2}));
+
+    }
+
+    @Test
+    @DisplayName("Select lanza excepción si la poblacion es de tamanyo 0")
+    public void testSelectThrowsExceptionForEmptyPopulation() throws EvolutionaryAlgorithmException {
+        // Arrange
+        TournamentSelection selection = new TournamentSelection(3);
+        int[] individual = {};
+
+        // Act & Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> selection.select(individual));
     }
 
     @Test

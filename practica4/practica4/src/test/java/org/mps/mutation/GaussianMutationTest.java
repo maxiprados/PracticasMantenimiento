@@ -51,4 +51,15 @@ public class GaussianMutationTest {
         //Act && Assert
         assertThrows(EvolutionaryAlgorithmException.class, () -> mutation.mutate(null));
     }
+
+    @DisplayName("Mutacion invalida (longitud 0) para tirar excepcion")
+    @Test
+    void testMutationThrowsExceptionOnEmptyInput() {
+        //Arrange
+        GaussianMutation mutation = new GaussianMutation(1.0, 1.0);
+        int[] original = {};
+
+        //Act && Assert
+        assertThrows(EvolutionaryAlgorithmException.class, () -> mutation.mutate(original));
+    }
 }
