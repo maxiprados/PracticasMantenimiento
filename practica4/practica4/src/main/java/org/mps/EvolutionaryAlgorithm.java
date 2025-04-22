@@ -48,7 +48,7 @@ public class EvolutionaryAlgorithm {
 
         if (population != null && population.length  > 0 ) {
             
-            //Error: Comprobar Paridad de la población
+            //ERROR -> Comprobar Paridad de la población
             if (population.length % 2 != 0) {
                 throw new EvolutionaryAlgorithmException("La población debe tener un número par de individuos");
             }
