@@ -76,18 +76,21 @@ public class ArrayBoundedQueue<T> implements BoundedQueue<T> {
         return (index + 1) % buffer.length;
     }
 
+
+
+    
     @Override
-    public boolean isFull() {
+    public boolean isFull() { //Test hecho
         return size == buffer.length;
     }
 
     @Override
-    public boolean isEmpty() {
+    public boolean isEmpty() { //Test hecho
         return size == 0;
     }
 
     @Override
-    public int size() {
+    public int size() { //Test hecho
         return size;
     }
 
