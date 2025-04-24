@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 
 public class ArrayBondedQueueTest {
-<<<<<<< Updated upstream
+
     @Nested
     class Constructor {
         @DisplayName("")
@@ -163,7 +163,7 @@ public class ArrayBondedQueueTest {
         }
 
     }
-=======
+
     
     @Nested
     public class ArrayBoundedQueueIsFullTest{
@@ -383,6 +383,6 @@ public class ArrayBondedQueueTest {
     }
 
     
->>>>>>> Stashed changes
+
 }
 
