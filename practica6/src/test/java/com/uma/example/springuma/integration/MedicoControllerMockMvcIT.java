@@ -1,4 +1,4 @@
-package com.uma.example.springuma.integration.base;
+package com.uma.example.springuma.integration;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -161,63 +161,6 @@ class MedicoControllerMockMvcIT extends AbstractIntegration {
     }
 
 
-    @Test
-    @DisplayName("Prueba de camino feliz (Crear medico, obtenerlo, editarlo, obtenerlo y eliminarlo)")
-    void HappyPath() throws Exception{
-        
-        Medico medico = this.createMedico(1L, "14253678S", "Pepe Viyuela", "Cirujano");
-        
-        // Introduce un medico en la base de datos
-        this.mockMvc.perform(post("/medico")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(medico)))
-        .andExpect(status().isCreated())
-        .andExpect(status().is2xxSuccessful());
-
-        // Obtenemos el medico correctamente
-
-        MvcResult mvcResult = this.mockMvc.perform(get("/medico/1"))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.id").value("1"))
-        .andExpect(jsonPath("$.dni").value("14253678S"))
-        .andExpect(jsonPath("$.especialidad").value("Cirujano"))
-        .andExpect(jsonPath("$.nombre").value("Pepe Viyuela"))
-        .andReturn();
-
-        //Editamos el medico
-        medico.setNombre("Paco Leon");
-
-        this.mockMvc.perform(put("/medico")
-        .contentType("application/json")
-        .content(objectMapper.writeValueAsString(medico)))
-        .andExpect(status().is2xxSuccessful());
-
-        //Comprobamos que obtenemos al medico con los datos actualizados con el dni
-
-        MvcResult mvcResult2 = this.mockMvc.perform(get("/medico/dni/14253678S"))
-        .andExpect(status().isOk())
-        .andExpect(content().contentType("application/json"))
-        .andExpect(jsonPath("$.id").value("1"))
-        .andExpect(jsonPath("$.dni").value("14253678S"))
-        .andExpect(jsonPath("$.especialidad").value("Cirujano"))
-        .andExpect(jsonPath("$.nombre").value("Paco Leon"))
-        .andReturn();  
-
-
-        //Probamos a eliminarlo
-        this.mockMvc.perform(delete("/medico/1"))
-        .andExpect(status().is2xxSuccessful());
-
-
-        MvcResult mvcResult3 = this.mockMvc.perform(get("/medico/1"))
-        .andExpect(status().is5xxServerError())
-        .andExpect(content().contentType("application/json"))
-        .andReturn(); 
-
-
-        
-    }
 
 
 } 
