@@ -1,3 +1,4 @@
+//Pedro Scarpati Sundblad y Máximo Prados Meléndez - Grupo C
 package com.uma.example.springuma.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PrediccionTest {
+public class PrediccionTestMockMvcIT {
 
     @Autowired
     private MockMvc mockMvc;

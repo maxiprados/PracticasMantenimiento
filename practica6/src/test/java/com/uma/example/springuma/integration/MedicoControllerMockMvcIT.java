@@ -1,3 +1,4 @@
+//Pedro Scarpati Sundblad y Máximo Prados Meléndez - Grupo C
 package com.uma.example.springuma.integration;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;

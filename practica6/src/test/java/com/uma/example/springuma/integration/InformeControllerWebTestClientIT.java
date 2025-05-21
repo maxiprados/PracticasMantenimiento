@@ -1,4 +1,4 @@
-
+//Pedro Scarpati Sundblad y Máximo Prados Meléndez - Grupo C
 package com.uma.example.springuma.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
