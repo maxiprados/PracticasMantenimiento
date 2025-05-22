@@ -9,6 +9,7 @@ export let options = {
     },
     stages: [
         { duration: '10m', target: 100000 },
+       
     ],
 };
 

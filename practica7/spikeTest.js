@@ -3,11 +3,11 @@ import { check, fail } from 'k6';
 
 export const options = {
     stages: [
-        { duration: '2m', target: 24000 }, // subida brusca hasta 40%
+        { duration: '2m', target: 1042 }, // subida brusca hasta 40%
         { duration: '1m', target: 0 },     // bajada rápida para liberar recursos
     ],
     thresholds: {
-        http_req_failed: ['rate<0.005'],  // menos del 0.5% de fallos
+        http_req_failed: [{ threshold: 'rate<0.005', abortOnFail: true }],  // menos del 0.5% de fallos
     },
 };
 

@@ -3,12 +3,13 @@ import { check, sleep, fail } from 'k6';
 
 export const options = {
     stages: [
-        { duration: '3m', target: 30000 }, // subida a 50% carga
-        { duration: '3m', target: 30000 }, // mantenimiento
+        { duration: '3m', target: 1303 }, // subida a 50% carga
+        { duration: '3m', target: 1303 }, // mantenimiento
         { duration: '2m', target: 0 },     // bajada
     ],
     thresholds: {
-        http_req_failed: ['rate<0.01'],  // menos del 1% de peticiones fallidas
+        http_req_failed: [
+            { threshold: 'rate<0.01', abortOnFail: true }]  // menos del 1% de peticiones fallidas
     },
 };
 

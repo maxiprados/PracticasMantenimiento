@@ -3,13 +3,17 @@ import { check } from 'k6';
 
 export const options = {
     stages: [
-        { duration: '3m', target: 48000 },
-        { duration: '3m', target: 48000 },
+        { duration: '3m', target: 2085 }, //80% de VUs máximos
+        { duration: '3m', target: 2085 },
         { duration: '2m', target: 0 },
     ],
     thresholds: {
-        http_req_failed: ['rate<0.01'], // menos del 1% de peticiones fallidas
-        http_req_duration: ['avg<1000'], // duración promedio < 1000ms
+        http_req_failed: [
+            { threshold: 'rate<0.01', abortOnFail: true }
+        ], // menos del 1% de peticiones fallidas
+        http_req_duration: [
+            { threshold: 'avg<1000', abortOnFail: true }
+        ], // duración promedio < 1000ms
     },
 };
 
