@@ -18,10 +18,10 @@ export default async function () {
 
   await page.locator('input[name="nombre"]').type('Carmen Machi');
   await page.locator('input[name="DNI"]').type('12458965Z');
-  await page.locator('button[name="login"]').click();
-
-  // Espera y verifica redirección al dashboard
-  await page.waitForNavigation();
+  
+  const buttonLogin = page.locator('button[name="login"]');
+  await Promise.all([page.waitForNavigation(), buttonLogin.click()]);
+  
   await check(page.locator('h2'), {
     header: async (lo) => (await lo.textContent()) == 'Listado de pacientes',
   });
