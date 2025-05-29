@@ -45,6 +45,26 @@ export default async function () {
             header: async (lo) => (await lo.textContent()) == "Listado de pacientes",
         });
 
+        const datos = await page.evaluate(() => {
+            const filas = document.querySelectorAll('table tbody tr');
+            const ultimaFila = filas[filas.length - 1];
+            if (!ultimaFila) return null;
+
+            const celdas = ultimaFila.querySelectorAll('td');
+            return {
+                nombre: celdas[1]?.textContent.trim(),
+                
+            };
+        });
+
+        check(null, {
+            'Nombre es Luisma': () => datos?.nombre === 'Luisma',
+        });
+
+
+
+              
+
     } finally {
         await page.close();
     }
