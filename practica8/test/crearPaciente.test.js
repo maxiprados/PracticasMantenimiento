@@ -42,7 +42,7 @@ export default async function () {
         await Promise.all([page.waitForNavigation(), submitButton.click()]);
 
         await check(page.locator('h2'), {
-            header: async (lo) => (await lo.textContent()) == "Listado de pacientes",
+            header2: async (lo) => (await lo.textContent()) == "Listado de pacientes",
         });
 
         const datos = await page.evaluate(() => {
