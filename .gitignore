@@ -25,3 +25,4 @@ target/
 *.class
 # Entregas finales en comprimidos
 *.zip
+practica6/database.mv.db
