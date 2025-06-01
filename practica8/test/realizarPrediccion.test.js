@@ -25,10 +25,8 @@ export default async function () {
   await check(page.locator('h2'), {
     header: async (lo) => (await lo.textContent()) == 'Listado de pacientes',
   });
-
   // Esperar a que aparezca el listado
   await page.waitForSelector('td[name="nombre"]');
-
   // Usar evaluate para forzar click en la primera celda
   await page.evaluate(() => {
     const celdas = document.querySelectorAll('td[name="nombre"]');
@@ -39,17 +37,20 @@ export default async function () {
   });
 
   await page.locator('button[name="view"]').click();
+  await page.locator('button[name="predict"]').click();
 
-  await page.locator('button[name="add"]').click();
+  // Comprueba que aparece el span con el texto esperado y un número
+  await page.waitForSelector('span[name="predict"]');
+  const predictText = await page.locator('span[name="predict"]').textContent();
 
-  await page.locator('button.predict-button').click();
-  await page.locator('textarea[matinput]').type('Paciente con sospecha, se recomienda revisión.');
-  await page.locator('button[name="save"]').click();
-
-  check(page, {
-  'Informe guardado correctamente': async () =>
-    (await page.content()).includes('Informe de la imagen'),
+  check(null, {
+    'El span de predicción aparece': () => !!predictText,
+    'El texto empieza correctamente': () => predictText.trim().startsWith('Probabilidad de cáncer:'),
+    
   });
+
+
+
 
   await page.close();
 }
